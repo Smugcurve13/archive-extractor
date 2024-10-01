@@ -1,4 +1,6 @@
 import FreeSimpleGUI as gui
+from zip_extractor import extract_archive
+
 
 gui.theme("Black")
 
@@ -17,6 +19,11 @@ window = gui.Window("Archive Extractor",
                     layout = [[label1,input1,choose_button1],
                               [label2,input2,choose_button2],
                               [extract_button, output_label]])
-
-window.read()
+while True:
+    event,values = window.read()
+    print(event,values)
+    archive_path = values["archive"]
+    dest_dir = values["folder"]
+    extract_archive(archive_path,dest_dir)
+    window["output"].update(value="Extraction Completed")
 window.close()
